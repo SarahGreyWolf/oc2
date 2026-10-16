@@ -27,7 +27,7 @@ public final class MessageUtils {
     @SuppressWarnings("unchecked")
     public static <T extends BlockEntity> void withNearbyServerBlockEntity(final NetworkManager.PacketContext context, final BlockPos pos, final Class<T> type, final int maxDistance, final BiConsumer<ServerPlayer, T> callback) {
         if (!(context.getPlayer() instanceof final ServerPlayer player)
-            || !pos.closerToCenterThan(player.position(), maxDistance)) {
+            || player.distanceToSqr(pos.getCenter()) > maxDistance * maxDistance) {
             return;
         }
 
